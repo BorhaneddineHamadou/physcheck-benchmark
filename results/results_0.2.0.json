@@ -1,0 +1,233 @@
+{
+  "physcheck": "0.2.0",
+  "corpora": {
+    "corner_case_ndd": {
+      "config": {
+        "layers": "L0,L1,L2",
+        "map": null,
+        "provenance": "Corner-case dataset from naturalistic driving (Jilin Univ., Smart Cities 2025), RoadRunner-exported OpenX",
+        "osc_version": "1.1"
+      },
+      "real": {
+        "scenario_files": 25,
+        "true_negatives": 25,
+        "files_with_physics_error": 0,
+        "files_with_tool_fp": 0,
+        "specificity": 1.0,
+        "files_with_conversion_artifact": 0,
+        "conversion_artifact_findings_by_rule": {},
+        "files_with_l0_error": 0,
+        "l0_error_findings_by_rule": {},
+        "files_with_warning": 0,
+        "error_findings_by_rule": {},
+        "warning_findings_by_rule": {},
+        "candidate_false_positives": []
+      },
+      "mutants": {
+        "mutants": 76,
+        "detected": 76,
+        "detected_error_severity": 51,
+        "sensitivity": 1.0,
+        "false_negatives": 0,
+        "per_mutation": {
+          "ACCEL_HUGE": {
+            "total": 25,
+            "detected": 25,
+            "detected_error": 25
+          },
+          "BBOX_ZERO": {
+            "total": 25,
+            "detected": 25,
+            "detected_error": 25
+          },
+          "MASS_TINY": {
+            "total": 25,
+            "detected": 25,
+            "detected_error": 0
+          },
+          "SPEED_150": {
+            "total": 1,
+            "detected": 1,
+            "detected_error": 1
+          }
+        },
+        "false_negative_details": []
+      }
+    },
+    "dlr_ht": {
+      "config": {
+        "layers": "L0,L1,L2",
+        "map": "map/test-bed-lower-saxony-A2-A391-A39-L295_DLR-HT.xodr",
+        "provenance": "DLR Highway Traffic dataset v1.2.0 (Test Bed Lower Saxony): infrastructure-sensor trajectory replay",
+        "osc_version": "1.2"
+      },
+      "real": {
+        "scenario_files": 1,
+        "true_negatives": 1,
+        "files_with_physics_error": 0,
+        "files_with_tool_fp": 0,
+        "specificity": 1.0,
+        "files_with_conversion_artifact": 0,
+        "conversion_artifact_findings_by_rule": {},
+        "files_with_l0_error": 0,
+        "l0_error_findings_by_rule": {},
+        "files_with_warning": 0,
+        "error_findings_by_rule": {},
+        "warning_findings_by_rule": {},
+        "candidate_false_positives": []
+      }
+    },
+    "dlr_ut": {
+      "config": {
+        "layers": "L0,L1,L2",
+        "map": "map/bs-inner-ring-road-ut.xodr",
+        "provenance": "DLR Urban Traffic dataset v1.3.1 (AIM Research Intersection, Braunschweig): infrastructure-sensor trajectory replay",
+        "osc_version": "1.2"
+      },
+      "real": {
+        "scenario_files": 4,
+        "true_negatives": 4,
+        "files_with_physics_error": 0,
+        "files_with_tool_fp": 0,
+        "specificity": 1.0,
+        "files_with_conversion_artifact": 0,
+        "conversion_artifact_findings_by_rule": {},
+        "files_with_l0_error": 0,
+        "l0_error_findings_by_rule": {},
+        "files_with_warning": 0,
+        "error_findings_by_rule": {},
+        "warning_findings_by_rule": {},
+        "candidate_false_positives": []
+      }
+    },
+    "sctrans_real": {
+      "config": {
+        "layers": "L0,L1,L2",
+        "map": null,
+        "provenance": "SCTrans (ICSE'24) scenarios converted from inD/highD drone recordings and NGSIM camera recordings; real-data strata only",
+        "osc_version": "1.0",
+        "artifact_rules": [
+          "FRI-023",
+          "KIN-018",
+          "GEO-005",
+          "MAP-004",
+          "MAP-005",
+          "PRE-012"
+        ],
+        "artifact_rules_justification": "results/TRIAGE_v0.2.0.md \u2014 verified conversion-template/map-coverage artifacts (CARLA maxAcceleration=200 template, template sun 75.1/az0, template bboxes incl. 5x2 m pedestrians, under-covering converted maps, template rain w/ cloud-free sky)"
+      },
+      "real": {
+        "scenario_files": 1079,
+        "true_negatives": 1079,
+        "files_with_physics_error": 1079,
+        "files_with_tool_fp": 0,
+        "specificity": 1.0,
+        "files_with_conversion_artifact": 1079,
+        "conversion_artifact_findings_by_rule": {
+          "FRI-023": 12997,
+          "GEO-005": 1079,
+          "KIN-018": 12997,
+          "MAP-004": 2411,
+          "MAP-005": 985,
+          "PRE-012": 557
+        },
+        "files_with_l0_error": 1079,
+        "l0_error_findings_by_rule": {
+          "SCH-001": 1079,
+          "SCH-111": 163
+        },
+        "files_with_warning": 1079,
+        "error_findings_by_rule": {},
+        "warning_findings_by_rule": {
+          "ATM-001": 1079,
+          "ENT-010": 1549,
+          "ENT-011": 500,
+          "KIN-007": 11,
+          "KIN-013": 1510,
+          "KIN-015": 1510,
+          "KIN-017": 500,
+          "KIN-019": 13852,
+          "KIN-020": 1510,
+          "MAP-007": 1190,
+          "PRE-002": 522
+        },
+        "candidate_false_positives": []
+      },
+      "mutants": {
+        "mutants": 1545,
+        "detected": 1545,
+        "detected_error_severity": 1305,
+        "sensitivity": 1.0,
+        "false_negatives": 0,
+        "per_mutation": {
+          "ACCEL_HUGE": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "BBOX_ZERO": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "FOG_NEG": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "MASS_TINY": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 0
+          },
+          "OFFROAD_2KM": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "OVERLAP_INIT": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "PED_SPRINT": {
+            "total": 105,
+            "detected": 105,
+            "detected_error": 105
+          },
+          "PRESSURE_LOW": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "SPEED_150": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "SUN_AZIM": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "SUN_ELEV": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "SUN_ILLUM": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 120
+          },
+          "TEMP_HIGH": {
+            "total": 120,
+            "detected": 120,
+            "detected_error": 0
+          }
+        },
+        "false_negative_details": []
+      }
+    }
+  }
+}

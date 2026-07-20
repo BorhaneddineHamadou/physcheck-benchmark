@@ -1,0 +1,1491 @@
+<?xml version='1.0' encoding='utf-8'?>
+<OpenScenario>
+  <FileHeader author="trial" date="2023-03-23T12:00:00" description="myscenario" revMajor="1" revMinor="0" />
+  <ParameterDeclarations />
+  <CatalogLocations />
+  <RoadNetwork>
+    <LogicFile filepath="DEU_LocationDLower.xodr" />
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="ego_vehicle">
+      <Vehicle name="vehicle.lincoln.mkz2017" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="2.0" y="0.0" z="0.9" />
+          <Dimensions height="1.8" length="5.0" width="2.0" />
+        </BoundingBox>
+        <Performance maxAcceleration="10.0" maxDeceleration="10.0" maxSpeed="69.0" />
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+        </Axles>
+        <Properties>
+          <Property name="type" value="ego_vehicle" />
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Npc4">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="2.0" y="0.0" z="0.9" />
+          <Dimensions height="1.8" length="4.5" width="2.1" />
+        </BoundingBox>
+        <Performance maxAcceleration="200.0" maxDeceleration="10.0" maxSpeed="69.444" />
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation" />
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Npc5">
+      <Vehicle name="vehicle.carlamotors.carlacola" vehicleCategory="truck">
+        <BoundingBox>
+          <Center x="2.0" y="0.0" z="0.9" />
+          <Dimensions height="1.8" length="4.5" width="2.1" />
+        </BoundingBox>
+        <Performance maxAcceleration="200.0" maxDeceleration="10.0" maxSpeed="69.444" />
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6" />
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation" />
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="myenvironment">
+              <TimeOfDay animation="false" dateTime="2023-03-20T12:00:00" />
+              <Weather cloudState="cloudy">
+                <Sun azimuth="0.0" elevation="1.31" intensity="1.0" />
+                <Fog visualRange="1000.0" />
+                <Precipitation intensity="0.0" precipitationType="rain" />
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0" />
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="ego_vehicle">
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.0" />
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="35.3304" />
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-0.0048" x="116.2216205776235" y="-5.395485115746554" z="0.0" />
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <RoutingAction>
+              <AcquirePositionAction>
+                <Position>
+                  <WorldPosition h="5.500000000000088E-4" x="328.0698938085467" y="-4.4221709573094845" z="0.0" />
+                </Position>
+              </AcquirePositionAction>
+            </RoutingAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="HeroAgent">
+                  <Properties>
+                    <Property name="module" value="external_control" />
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle active="false" value="0.0" />
+                <Brake active="false" value="0.0" />
+                <Clutch active="false" value="0.0" />
+                <ParkingBrake active="false" value="0.0" />
+                <SteeringWheel active="false" value="0.0" />
+                <Gear active="false" number="0.0" />
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Npc4">
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.0" />
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="33.7" />
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-0.0017" x="388.0693540687137" y="-5.4853266455305585" z="0.0" />
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="Npc4control">
+                  <Properties>
+                    <Property name="module" value="waypoint_vehicle_control" />
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle active="false" value="0.0" />
+                <Brake active="false" value="0.0" />
+                <Clutch active="false" value="0.0" />
+                <ParkingBrake active="false" value="0.0" />
+                <SteeringWheel active="false" value="0.0" />
+                <Gear active="false" number="0.0" />
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedProfileAction followingMode="follow">
+                <SpeedProfileEntry speed="33.7100001" time="1.0" />
+                <SpeedProfileEntry speed="33.7200001" time="1.0" />
+                <SpeedProfileEntry speed="33.7300001" time="1.0" />
+                <SpeedProfileEntry speed="33.7400001" time="1.0" />
+                <SpeedProfileEntry speed="33.7500001" time="1.0" />
+                <SpeedProfileEntry speed="33.7600001" time="1.0" />
+                <SpeedProfileEntry speed="33.770000100000004" time="1.0" />
+                <SpeedProfileEntry speed="33.7800001" time="1.0" />
+                <SpeedProfileEntry speed="33.7900001" time="1.0" />
+                <SpeedProfileEntry speed="33.8000001" time="1.0" />
+                <SpeedProfileEntry speed="33.8100001" time="1.0" />
+                <SpeedProfileEntry speed="33.8200001" time="1.0" />
+                <SpeedProfileEntry speed="33.8300001" time="1.0" />
+                <SpeedProfileEntry speed="33.840000100000005" time="1.0" />
+                <SpeedProfileEntry speed="33.8500001" time="1.0" />
+                <SpeedProfileEntry speed="33.8600001" time="1.0" />
+                <SpeedProfileEntry speed="33.8700001" time="1.0" />
+                <SpeedProfileEntry speed="33.880000100000004" time="1.0" />
+                <SpeedProfileEntry speed="33.8900001" time="1.0" />
+                <SpeedProfileEntry speed="33.9000001" time="1.0" />
+                <SpeedProfileEntry speed="33.9100001" time="1.0" />
+                <SpeedProfileEntry speed="33.9200001" time="1.0" />
+                <SpeedProfileEntry speed="33.9300001" time="1.0" />
+                <SpeedProfileEntry speed="33.9400001" time="1.0" />
+                <SpeedProfileEntry speed="33.950000100000004" time="1.0" />
+                <SpeedProfileEntry speed="33.9600001" time="1.0" />
+                <SpeedProfileEntry speed="33.9701001" time="1.0" />
+                <SpeedProfileEntry speed="33.9801001" time="1.0" />
+                <SpeedProfileEntry speed="33.9901001" time="1.0" />
+                <SpeedProfileEntry speed="34.000100100000004" time="1.0" />
+                <SpeedProfileEntry speed="34.0102001" time="1.0" />
+                <SpeedProfileEntry speed="34.020200100000004" time="1.0" />
+                <SpeedProfileEntry speed="34.0302001" time="1.0" />
+                <SpeedProfileEntry speed="34.0403001" time="1.0" />
+                <SpeedProfileEntry speed="34.0503001" time="1.0" />
+                <SpeedProfileEntry speed="34.0603001" time="1.0" />
+                <SpeedProfileEntry speed="34.0704001" time="1.0" />
+                <SpeedProfileEntry speed="34.0804001" time="1.0" />
+                <SpeedProfileEntry speed="34.0905001" time="1.0" />
+                <SpeedProfileEntry speed="34.1005001" time="1.0" />
+                <SpeedProfileEntry speed="34.1105001" time="1.0" />
+                <SpeedProfileEntry speed="34.120600100000004" time="1.0" />
+                <SpeedProfileEntry speed="34.1306001" time="1.0" />
+                <SpeedProfileEntry speed="34.140700100000004" time="1.0" />
+                <SpeedProfileEntry speed="34.1507001" time="1.0" />
+                <SpeedProfileEntry speed="34.1608001" time="1.0" />
+                <SpeedProfileEntry speed="34.1708001" time="1.0" />
+                <SpeedProfileEntry speed="34.1809001" time="1.0" />
+                <SpeedProfileEntry speed="34.1909001" time="1.0" />
+                <SpeedProfileEntry speed="34.2009001" time="1.0" />
+              </SpeedProfileAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Npc5">
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.0" />
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="23.69" />
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0.0025" x="237.65939337769694" y="-8.886119137842547" z="0.0" />
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="Npc5control">
+                  <Properties>
+                    <Property name="module" value="waypoint_vehicle_control" />
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle active="false" value="0.0" />
+                <Brake active="false" value="0.0" />
+                <Clutch active="false" value="0.0" />
+                <ParkingBrake active="false" value="0.0" />
+                <SteeringWheel active="false" value="0.0" />
+                <Gear active="false" number="0.0" />
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedProfileAction followingMode="follow">
+                <SpeedProfileEntry speed="23.690000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.7000001" time="1.0" />
+                <SpeedProfileEntry speed="23.710000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.710000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.710000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.7200001" time="1.0" />
+                <SpeedProfileEntry speed="23.7200001" time="1.0" />
+                <SpeedProfileEntry speed="23.7300001" time="1.0" />
+                <SpeedProfileEntry speed="23.7400001" time="1.0" />
+                <SpeedProfileEntry speed="23.7400001" time="1.0" />
+                <SpeedProfileEntry speed="23.7500001" time="1.0" />
+                <SpeedProfileEntry speed="23.7500001" time="1.0" />
+                <SpeedProfileEntry speed="23.760000100000003" time="1.0" />
+                <SpeedProfileEntry speed="23.7700001" time="1.0" />
+                <SpeedProfileEntry speed="23.780000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.7900001" time="1.0" />
+                <SpeedProfileEntry speed="23.800000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.800000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.8100001" time="1.0" />
+                <SpeedProfileEntry speed="23.8200001" time="1.0" />
+                <SpeedProfileEntry speed="23.8300001" time="1.0" />
+                <SpeedProfileEntry speed="23.8400001" time="1.0" />
+                <SpeedProfileEntry speed="23.850000100000003" time="1.0" />
+                <SpeedProfileEntry speed="23.8600001" time="1.0" />
+                <SpeedProfileEntry speed="23.870000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.8800001" time="1.0" />
+                <SpeedProfileEntry speed="23.8901001" time="1.0" />
+                <SpeedProfileEntry speed="23.9001001" time="1.0" />
+                <SpeedProfileEntry speed="23.9001001" time="1.0" />
+                <SpeedProfileEntry speed="23.9101001" time="1.0" />
+                <SpeedProfileEntry speed="23.920100100000003" time="1.0" />
+                <SpeedProfileEntry speed="23.920100100000003" time="1.0" />
+                <SpeedProfileEntry speed="23.9301001" time="1.0" />
+                <SpeedProfileEntry speed="23.9301001" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960000100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9700001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9602001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9502001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.940100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.9501001" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.960100100000002" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9701001" time="1.0" />
+                <SpeedProfileEntry speed="23.9801001" time="1.0" />
+                <SpeedProfileEntry speed="23.9801001" time="1.0" />
+                <SpeedProfileEntry speed="23.9801001" time="1.0" />
+                <SpeedProfileEntry speed="23.990100100000003" time="1.0" />
+                <SpeedProfileEntry speed="23.9900001" time="1.0" />
+                <SpeedProfileEntry speed="24.0000001" time="1.0" />
+                <SpeedProfileEntry speed="24.0000001" time="1.0" />
+                <SpeedProfileEntry speed="24.0000001" time="1.0" />
+                <SpeedProfileEntry speed="24.010000100000003" time="1.0" />
+                <SpeedProfileEntry speed="24.010000100000003" time="1.0" />
+                <SpeedProfileEntry speed="24.0200001" time="1.0" />
+                <SpeedProfileEntry speed="24.0200001" time="1.0" />
+                <SpeedProfileEntry speed="24.030000100000002" time="1.0" />
+                <SpeedProfileEntry speed="24.030000100000002" time="1.0" />
+                <SpeedProfileEntry speed="24.0400001" time="1.0" />
+                <SpeedProfileEntry speed="24.0400001" time="1.0" />
+                <SpeedProfileEntry speed="24.0400001" time="1.0" />
+                <SpeedProfileEntry speed="24.050000100000002" time="1.0" />
+                <SpeedProfileEntry speed="24.050000100000002" time="1.0" />
+                <SpeedProfileEntry speed="24.0600001" time="1.0" />
+                <SpeedProfileEntry speed="24.0600001" time="1.0" />
+                <SpeedProfileEntry speed="24.0700001" time="1.0" />
+                <SpeedProfileEntry speed="24.0700001" time="1.0" />
+              </SpeedProfileAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        </Actions>
+    </Init>
+    <Story name="mystory">
+      <Act name="my_act">
+        <ManeuverGroup maximumExecutionCount="1" name="Npc4ManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Npc4" />
+          </Actors>
+          <Maneuver name="Npc4_maneuver">
+            <Event name="Npc4FollowTrajectory" priority="overwrite">
+              <Action name="Npc4FollowTrajectory">
+                <PrivateAction>
+                  <RoutingAction>
+                    <AssignRouteAction>
+                      <Route closed="false" name="Npc4route">
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0017" x="389.42560309154925" y="-5.48532706191028" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0014" x="390.78205160035145" y="-5.485327478351238" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0014" x="392.1184540910167" y="-5.495301041656078" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0014" x="393.4648297603393" y="-5.495301455170991" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0011" x="394.801232298574" y="-5.495301865622847" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0011" x="396.1376348591318" y="-5.495302276074707" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0011" x="397.4840105954242" y="-5.495302689589642" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="398.83038635421707" y="-5.495303103104589" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="400.1767621323215" y="-5.50527667063368" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="401.523038204515" y="-5.505277084284406" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-5.0E-4" x="402.8695137622332" y="-5.505277497996417" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-5.0E-4" x="404.2158896108517" y="-5.5052779116777915" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-2.0E-4" x="405.5721389050219" y="-5.505278328392837" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-2.0E-4" x="406.91861453024245" y="-5.505278742104871" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0" x="408.26499044636364" y="-5.505279155786268" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="2.0E-4" x="409.62123980555623" y="-5.515252727682758" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="2.0E-4" x="410.9776886538171" y="-5.515253144626769" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="5.0E-4" x="412.3340377932444" y="-5.515253561540132" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="8.0E-4" x="413.69038695535016" y="-5.515253978453496" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="8.0E-4" x="415.04663640879966" y="-5.515254395336219" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0011" x="416.4030853482171" y="-5.515254812280258" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0014" x="417.7594345819018" y="-5.505282073006384" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0017" x="419.1157838352533" y="-5.505282489752143" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0017" x="420.48210626814927" y="-5.505282909562217" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.002" x="421.8383558357003" y="-5.505283326277347" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0023" x="423.194804892232" y="-5.495310586194719" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0026" x="424.5511542369187" y="-5.495311002772876" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0029" x="425.8874575586855" y="-5.495311413194248" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0032" x="427.23393352603347" y="-5.485338669381719" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0032" x="428.5803097810937" y="-5.485339082730404" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0035" x="429.9167129040929" y="-5.475366335327429" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0038" x="431.2730623618203" y="-5.475366751570343" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0041" x="432.62941184541614" y="-5.465394009788156" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0044" x="433.99563477837444" y="-5.455421270698261" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0044" x="435.361957463132" y="-5.455421689664058" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0046" x="436.72837990571304" y="-5.4454489501287355" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0049" x="438.09470263963897" y="-5.4354762102251" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0052" x="439.461025393764" y="-5.4354766288531815" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0055" x="440.81737501503113" y="-5.425503885388503" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0055" x="442.18369781823634" y="-5.415531144641774" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0058" x="443.54004748521737" y="-5.405558400505313" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0061" x="444.8864240155316" y="-5.39558565298285" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0061" x="446.2627200473631" y="-5.385612914276136" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0064" x="447.60909661993617" y="-5.385613325960876" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0067" x="448.97541953813527" y="-5.375640583699286" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.007" x="450.3417424796344" y="-5.365667841099951" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.007" x="451.69799255215776" y="-5.355695095086614" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0073" x="453.06431553963733" y="-5.345722351813068" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0076" x="454.4307382819294" y="-5.335749608232218" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0076" x="455.7970613155669" y="-5.325776864283193" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                      </Route>
+                    </AssignRouteAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0.0" name="Npc4startTrigger">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="0.0" />
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="Npc5ManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Npc5" />
+          </Actors>
+          <Maneuver name="Npc5_maneuver">
+            <Event name="Npc5FollowTrajectory" priority="overwrite">
+              <Action name="Npc5FollowTrajectory">
+                <PrivateAction>
+                  <RoutingAction>
+                    <AssignRouteAction>
+                      <Route closed="false" name="Npc5route">
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0021" x="238.60684111029173" y="-8.87614633460268" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0021" x="239.54431571631105" y="-8.876146661809795" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0016" x="240.5017366018713" y="-8.87614699597878" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0016" x="241.4691306331353" y="-8.876147333628692" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0012" x="242.3866590033608" y="-8.87614765387397" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0012" x="243.3141605186703" y="-8.876147977600185" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="8.0E-4" x="244.25163518296017" y="-8.866175170064647" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="8.0E-4" x="245.17913671970052" y="-8.866175493676224" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="4.0E-4" x="246.11661140223327" y="-8.866175820767513" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="4.0E-4" x="247.05408609548164" y="-8.866176147858793" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="0.0" x="247.98158766445712" y="-8.8661764714704" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0" x="248.91906237940222" y="-8.866176798561693" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0" x="249.85653710532858" y="-8.866177125652987" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-4.0E-4" x="250.78403870636222" y="-8.86617744926459" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-4.0E-4" x="251.7215134538969" y="-8.866177776355899" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="252.65898820887045" y="-8.876151239228982" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="253.59646297819063" y="-8.87615156643616" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="254.5239646223525" y="-8.87615189016242" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="255.4614394133697" y="-8.876152217369608" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="256.3989142152798" y="-8.876152544576797" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="257.33638902808264" y="-8.876152871783987" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="258.27386385151283" y="-8.876153198991185" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="259.21133868255913" y="-8.886126662790009" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="260.1488135281291" y="-8.886126990113073" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="261.0862883843266" y="-8.886127317436157" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="262.0237632516825" y="-8.886127644759233" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="262.96123812984297" y="-8.886127972082315" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="263.89871301544247" y="-8.896101436576354" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="264.84616105250285" y="-8.8961017674987" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="265.7836359633423" y="-8.896102094937662" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="266.7211108851634" y="-8.896102422376625" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="267.6585858144236" y="-8.906075887451236" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="268.60603389576465" y="-8.906076218490703" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="269.69310591839684" y="-8.906076598314932" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="270.74028540027865" y="-8.916050102217191" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="271.75754548481177" y="-8.91605045777478" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="272.74488616730264" y="-8.9160508028748" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="273.71228058167657" y="-8.926024279386953" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="274.6796750111948" y="-8.926024617634829" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="275.6470694486837" y="-8.93599809450567" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="276.6044907624319" y="-8.935998429384796" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="277.56191208769314" y="-8.935998764263914" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="278.5193334209252" y="-8.945972238121014" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="279.4767547688588" y="-8.94597257311848" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="280.41422984619595" y="-8.955946040349007" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="281.37165121653635" y="-8.955946375464809" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="282.3190994588849" y="-8.955946707089822" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="283.27652085189777" y="-8.955947042205635" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="284.2339422529698" y="-8.965920517005712" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="285.1913636687437" y="-8.965920852239858" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="286.1388119558175" y="-8.965921183981997" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="287.0862602542275" y="-8.965921515724121" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="288.0436817038332" y="-8.965921850958287" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="288.99113002101916" y="-8.975895322972661" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="289.948551493209" y="-8.975895658325161" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="290.9259192577823" y="-8.975896000664173" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="291.86339447168666" y="-8.975896329030176" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="292.79089655573955" y="-8.975896653902925" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="293.7483180694669" y="-8.985870130115622" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="294.70573959807336" y="-8.985870465586478" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="295.6531879970057" y="-8.985870797562843" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="296.5906632657326" y="-8.985871126044726" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="297.5381116868066" y="-8.985871458021103" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="298.48546038416254" y="-8.995844931408213" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="299.4330085588018" y="-8.995845263536655" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="300.3704838715465" y="-8.995845592134426" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="301.3179323369042" y="-8.995845924227913" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="302.2653808135101" y="-8.995846256321407" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="303.2427487235988" y="-9.005819740935713" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="304.21014350720185" y="-9.005820080140227" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="305.1875114445695" y="-9.00582042284169" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="306.15480651977714" y="-9.005820762011242" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="307.1521207622823" y="-9.015794254223445" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="308.1096421813797" y="-9.015794590084326" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="309.057090737697" y="-9.015794922412047" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="310.0045393015427" y="-9.025768397609133" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="310.95188814857903" y="-9.025768730018973" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="311.89933673828693" y="-9.025769062463802" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="312.8368121923871" y="-9.035742534628634" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="313.79433367906273" y="-9.03574287072623" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="314.75165571396303" y="-9.03574320675382" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="315.70917721976986" y="-9.045716686425848" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="316.6964187085242" y="-9.04571703307742" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="317.6439670936031" y="-9.05569050960504" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="318.59141576178416" y="-9.055690842401207" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="319.53886443775934" y="-9.065664319245117" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="320.49618654103585" y="-9.06566465562769" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="321.4437349705774" y="-9.075638132859194" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="322.39118368348676" y="-9.07563846588956" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="323.34850581705473" y="-9.085611946909056" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="324.2959545522841" y="-9.08561228005654" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="325.24340329504224" y="-9.09558575795682" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="326.20092492901125" y="-9.095586094764535" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="327.1483736940895" y="-9.105559573017366" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="328.09572274244726" y="-9.105559906363967" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="329.0532444101624" y="-9.10556024329003" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="330.02053976808725" y="-9.11553372899844" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="330.96798858143757" y="-9.115534062497236" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="331.94545657448566" y="-9.115534406562691" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="332.9228248440822" y="-9.125507896294984" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="333.90009339775565" y="-9.125508240411023" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0041" x="334.8675882802626" y="-9.125508581085544" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="335.84495658546547" y="-9.1354820712998" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="336.82222517439124" y="-9.135482415536636" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="337.7897200919735" y="-9.135482756330754" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="338.7770615789309" y="-9.145456250541194" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="339.69449132400865" y="-9.145456573813554" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="340.60214739614844" y="-9.145456893641983" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="341.5296500369549" y="-9.155430367229389" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="342.47709898555746" y="-9.155430701196636" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="343.414574794921" y="-9.165404178647105" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="344.37189718127746" y="-9.16540451621297" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="345.31944589487324" y="-9.165404850332493" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="346.2668948844861" y="-9.17537833176804" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="347.2242173047669" y="-9.17537866945223" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="348.1716663202439" y="-9.175379003653703" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="349.1291882225923" y="-9.18535248911321" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="350.0866104084867" y="-9.185352826950933" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="351.04393287394134" y="-9.185353164753465" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0037" x="352.0014548103917" y="-9.195326650686331" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="352.948903882026" y="-9.19532698512202" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="353.9062263781281" y="-9.205300471338244" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="354.86374835204634" y="-9.205300809447861" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="355.8111974572514" y="-9.205301144000655" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="356.76851998719" y="-9.215274630688986" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="357.72604199512193" y="-9.215274968916964" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0033" x="358.6834642829685" y="-9.215275307109705" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="359.6308136978502" y="-9.225248790747285" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="360.5883357397962" y="-9.22524912909362" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="361.545758061568" y="-9.225249467404712" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0029" x="362.5030806595345" y="-9.235222955038457" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0025" x="363.4606027354059" y="-9.235223293503143" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0024" x="364.4080519416784" y="-9.23522362840727" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0024" x="365.3653745771136" y="-9.235223966801463" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0024" x="366.32289668354474" y="-9.245197455096156" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="367.2902922233017" y="-9.245197797170476" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="368.2676609247077" y="-9.245198142771335" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="369.2151101872281" y="-9.245198477792586" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.002" x="370.16245972948616" y="-9.245198812778574" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="371.1198821612734" y="-9.255172301749253" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="372.0674311888775" y="-9.25517263692289" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="373.02485364670736" y="-9.255172975589025" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0016" x="373.97220323369834" y="-9.255173310692122" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="374.9196525633624" y="-9.255173645830492" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="375.87717478654196" y="-9.255173984531917" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-0.0012" x="376.8444707093211" y="-9.255174326690566" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="377.8119661030966" y="-9.265147820169753" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="378.76928889771017" y="-9.26514815891895" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="379.71673828362333" y="-9.265148494174447" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="shortest">
+                          <Position>
+                            <WorldPosition h="-8.0E-4" x="380.6842337154002" y="-9.265148836523245" z="0.0" />
+                          </Position>
+                        </Waypoint>
+                      </Route>
+                    </AssignRouteAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0.0" name="Npc5startTrigger">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="0.0" />
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="rising" delay="0.0" name="startTrigger">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="0.0" />
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition conditionEdge="none" delay="1.0" name="myTrigger">
+          <ByValueCondition>
+            <StoryboardElementStateCondition state="completeState" storyboardElementRef="mystory" storyboardElementType="story" />
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenScenario>
