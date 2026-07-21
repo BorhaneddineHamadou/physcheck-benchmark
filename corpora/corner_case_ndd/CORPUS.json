@@ -1,3 +1,10 @@
-{"layers": "L0,L1,L2",
+{
+ "layers": "L0,L1,L2,L3",
  "provenance": "Corner-case dataset from naturalistic driving (Jilin Univ., Smart Cities 2025), RoadRunner-exported OpenX",
- "osc_version": "1.1"}
+ "osc_version": "1.1",
+ "artifact_rules": [
+  "DYN-005",
+  "DYN-006"
+ ],
+ "artifact_rules_justification": "results/TRIAGE_v0.3.0.md \u2014 two verified export/reconstruction defects: (1) placeholder first frame jumping 11 m in one 40 ms sample to the real track start (DYN-005, 274 m/s); (2) synthetic eased stops: exponential velocity decay (37->0 m/s, factor ~0.895 per 40 ms sample, tau~0.36 s) = 6-9 g sustained deceleration with no crash-pulse shape \u2014 a smoothing/easing filter, not vehicle dynamics (DYN-006). True defects of the RoadRunner reconstruction pipeline, not tool mistakes."
+}

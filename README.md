@@ -18,7 +18,9 @@ measurement campaigns — provenance documented per corpus):
 - **Sensitivity / false negatives.** Real data contains no violations, so the positive
   class is created by **mutation**: `mutate.py` seeds exactly one certainly-impossible
   physical violation per mutant (sun above the zenith, snowfall at +30 °C, 0-dimension
-  bounding boxes, 150 m/s commands, spawns 2 km off the map, ...). Each mutation
+  bounding boxes, 150 m/s commands, spawns 2 km off the map, trajectories that run
+  backwards in time, teleport mid-track, brake at 25 m/s², or sprint a pedestrian at
+  8 m/s sustained, ...). Each mutation
   declares the rule family that must fire; a mutant where it does not is a **false
   negative**. Mutations only edit elements the real file already has, so mutants stay
   maximally realistic; the applicability matrix is in each `mutants/<name>/manifest.json`.

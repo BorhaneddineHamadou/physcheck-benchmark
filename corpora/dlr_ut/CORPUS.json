@@ -1,3 +1,10 @@
-{"layers": "L0,L1,L2", "map": "map/bs-inner-ring-road-ut.xodr",
+{
+ "layers": "L0,L1,L2,L3",
+ "map": "map/bs-inner-ring-road-ut.xodr",
  "provenance": "DLR Urban Traffic dataset v1.3.1 (AIM Research Intersection, Braunschweig): infrastructure-sensor trajectory replay",
- "osc_version": "1.2"}
+ "osc_version": "1.2",
+ "artifact_rules": [
+  "DYN-006"
+ ],
+ "artifact_rules_justification": "results/TRIAGE_v0.3.0.md \u2014 tracking-pipeline discontinuities: track re-association makes the replayed speed step instantaneously (verified: entity 1695556999843816, v69->v70, 11.4 -> 18.4 m/s within one 0.05 s sample = ~140 m/s^2), which the friction-circle rule correctly reports as impossible. A true defect of the dataset's tracking, not a tool mistake."
+}

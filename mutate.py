@@ -156,6 +156,163 @@ def _mutate_entity_overlap(tree: ET.ElementTree) -> bool:
     return True
 
 
+def _polylines_by_entity(root: ET.Element) -> list[tuple[str, ET.Element]]:
+    """(entityRef, Polyline) pairs for every FollowTrajectoryAction polyline."""
+    out: list[tuple[str, ET.Element]] = []
+    for private in root.findall(".//Private"):
+        ref = private.get("entityRef", "")
+        for pl in private.findall(".//FollowTrajectoryAction//Polyline"):
+            out.append((ref, pl))
+    for group in root.findall(".//ManeuverGroup"):
+        refs = [e.get("entityRef", "") for e in group.findall("Actors/EntityRef")]
+        for pl in group.findall(".//FollowTrajectoryAction//Polyline"):
+            out.append((refs[0] if refs else "", pl))
+    return out
+
+
+def _timed_world_vertices(pl: ET.Element) -> list[tuple[ET.Element, float, ET.Element]]:
+    """(Vertex, time, WorldPosition) for vertices carrying both."""
+    out: list[tuple[ET.Element, float, ET.Element]] = []
+    for vertex in pl.findall("Vertex"):
+        raw = vertex.get("time")
+        world = vertex.find("Position/WorldPosition")
+        if raw is None or world is None:
+            continue
+        try:
+            out.append((vertex, float(raw), world))
+        except ValueError:
+            continue
+    return out
+
+
+def _pedestrian_names(root: ET.Element) -> set[str]:
+    return {
+        obj.get("name", "")
+        for obj in root.findall(".//Entities/ScenarioObject")
+        if obj.find("Pedestrian") is not None
+    }
+
+
+def _mutate_traj_time_reverse(tree: ET.ElementTree) -> bool:
+    # Third vertex re-stamped with the first one's time: time axis runs backwards.
+    for _ref, pl in _polylines_by_entity(tree.getroot()):
+        timed = _timed_world_vertices(pl)
+        if len(timed) >= 3 and timed[2][1] > timed[0][1]:
+            timed[2][0].set("time", str(timed[0][1]))
+            return True
+    return False
+
+
+def _mutate_traj_teleport(tree: ET.ElementTree) -> bool:
+    # Middle vertex displaced 500 m sideways: an impossible-speed position jump.
+    for _ref, pl in _polylines_by_entity(tree.getroot()):
+        timed = _timed_world_vertices(pl)
+        if len(timed) < 3:
+            continue
+        world = timed[len(timed) // 2][2]
+        try:
+            x = float(world.get("x", ""))
+        except ValueError:
+            continue
+        world.set("x", str(x + 500.0))
+        return True
+    return False
+
+
+def _mutate_traj_brake_wall(tree: ET.ElementTree) -> bool:
+    # Rewrite a vehicle polyline into a continuous profile: cruise at 40 m/s
+    # for 1 s, then brake at 25 m/s^2 to a stop (1.6 s) — sustained braking
+    # far beyond any friction circle (mu*g*1.35 <= ~15.9 m/s^2 even dry),
+    # while every segment speed stays street-legal. Timestamps are untouched.
+    peds = _pedestrian_names(tree.getroot())
+    for ref, pl in _polylines_by_entity(tree.getroot()):
+        if ref in peds:
+            continue
+        timed = _timed_world_vertices(pl)
+        if len(timed) < 5:
+            continue
+        times = [t for _v, t, _w in timed]
+        t0 = times[0]
+        if times[-1] - t0 < 3.0 or any(
+            tb - ta <= 0.0 for ta, tb in zip(times, times[1:])
+        ):
+            continue
+        # >=2 vertices strictly inside the braking phase (t0+1.0, t0+2.6):
+        # the friction-circle rule requires consecutive violating vertices.
+        if sum(1 for t in times if t0 + 1.0 < t < t0 + 2.6) < 2:
+            continue
+        try:
+            x0 = float(timed[0][2].get("x", ""))
+            y0 = float(timed[0][2].get("y", ""))
+        except ValueError:
+            continue
+        for _v, t, world in timed[1:]:
+            tau = t - t0
+            if tau <= 1.0:
+                x = x0 + 40.0 * tau
+            elif tau <= 2.6:
+                b = tau - 1.0
+                x = x0 + 40.0 + 40.0 * b - 12.5 * b * b
+            else:
+                x = x0 + 40.0 + 32.0
+            world.set("x", str(x))
+            world.set("y", str(y0))
+        return True
+    return False
+
+
+def _mutate_traj_ped_sprint(tree: ET.ElementTree) -> bool:
+    # Scale a pedestrian trajectory about its start so its average speed
+    # becomes 8 m/s sustained over the whole span — beyond human endurance
+    # (and, for bursty tracks, possibly beyond the 12.5 m/s sprint ceiling).
+    peds = _pedestrian_names(tree.getroot())
+    for ref, pl in _polylines_by_entity(tree.getroot()):
+        if ref not in peds:
+            continue
+        timed = _timed_world_vertices(pl)
+        if len(timed) < 3 or timed[-1][1] - timed[0][1] < 12.0:
+            continue
+        try:
+            points = [
+                (float(w.get("x", "")), float(w.get("y", ""))) for _v, _t, w in timed
+            ]
+        except ValueError:
+            continue
+        path = sum(
+            ((xb - xa) ** 2 + (yb - ya) ** 2) ** 0.5
+            for (xa, ya), (xb, yb) in zip(points, points[1:])
+        )
+        span = timed[-1][1] - timed[0][1]
+        if path < 1.0:
+            continue  # near-stationary: no deterministic speed to scale
+        scale = min(8.0 * span / path, 400.0)
+        x0, y0 = points[0]
+        for (_v, _t, world), (x, y) in zip(timed[1:], points[1:]):
+            world.set("x", str(x0 + scale * (x - x0)))
+            world.set("y", str(y0 + scale * (y - y0)))
+        return True
+    return False
+
+
+def _mutate_lane_change_105(tree: ET.ElementTree) -> bool:
+    # 1.05 s sits in the physics window only L3 sees: above KIN-021's absolute
+    # 1.0 s floor, but ~15.7 m/s^2 of lateral acceleration on a 3.5 m lane.
+    dyn = tree.getroot().find(".//LaneChangeAction/LaneChangeActionDynamics")
+    if dyn is None or dyn.get("dynamicsDimension") != "time":
+        return False
+    dyn.set("value", "1.05")
+    return True
+
+
+def _mutate_speed_rate_30(tree: ET.ElementTree) -> bool:
+    dyn = tree.getroot().find(".//SpeedAction/SpeedActionDynamics")
+    if dyn is None:
+        return False
+    dyn.set("dynamicsDimension", "rate")
+    dyn.set("value", "30.0")  # 3 g through the tires: impossible on any surface
+    return True
+
+
 MUTATIONS: list[Mutation] = [
     Mutation("SUN_ELEV", ("SOL-001",), "sun elevation 2.0 rad (> zenith)",
              lambda t: _sun(t, "elevation", "2.0")),
@@ -195,6 +352,24 @@ MUTATIONS: list[Mutation] = [
              _mutate_road_missing),
     Mutation("OVERLAP_INIT", ("MAP-005",), "two entities teleported to the same pose",
              _mutate_entity_overlap),
+    # L3 mutants (kinematic feasibility; DYN-001 curve-speed has no operator —
+    # it needs a guaranteed curved-road spawn, which no real corpus provides
+    # deterministically; it is covered by unit tests instead):
+    Mutation("TRAJ_TIME_REVERSE", ("DYN-004",), "trajectory time axis runs backwards",
+             _mutate_traj_time_reverse),
+    Mutation("TRAJ_TELEPORT", ("DYN-005",), "mid-trajectory vertex displaced 500 m",
+             _mutate_traj_teleport),
+    Mutation("TRAJ_BRAKE_WALL", ("DYN-006",),
+             "trajectory brakes 40->15->0 m/s in single time steps",
+             _mutate_traj_brake_wall),
+    Mutation("TRAJ_PED_SPRINT", ("DYN-007", "DYN-005"),
+             "pedestrian trajectory scaled x8: sustained superhuman speed",
+             _mutate_traj_ped_sprint),
+    Mutation("LANE_105", ("DYN-002",),
+             "lane change in 1.05 s (above KIN-021's floor; ~1.6 g lateral)",
+             _mutate_lane_change_105),
+    Mutation("SPEED_RATE_30", ("DYN-003",), "commanded speed-change rate 30 m/s^2",
+             _mutate_speed_rate_30),
 ]
 
 
