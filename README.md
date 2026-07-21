@@ -58,6 +58,34 @@ are listed per corpus in `CORPUS.json` `artifact_rules`; the runner excludes the
 from the tool-false-positive count but reports them fully. They are correct linter
 output about the files; they are just not tool mistakes.
 
+## Metrics: why specificity + sensitivity, not a single confusion matrix
+
+Each half of the benchmark can only supply half of the confusion matrix, because
+ground truth comes from different places:
+
+- **Real corpora → TN and FP.** The ground-truth model is that real recorded driving
+  is physically plausible, so an error-clean real file is a **true negative** and
+  every error finding is a **candidate false positive**, hand-triaged (see
+  `results/TRIAGE_<ver>.md`). Specificity = TN / (TN + FP). What real data *cannot*
+  provide is TP/FN: no one has exhaustively annotated which real files contain
+  genuine violations, so a missed violation there is unobservable.
+- **Mutants → TP and FN.** Every mutant carries exactly one known injected
+  impossibility, so a detection (expected rule family fires) is a **true positive**
+  and a miss is a **false negative** — enumerated per mutant in
+  `results/results_<ver>.json` (`false_negative_details`). Sensitivity =
+  TP / (TP + FN). Mutants *cannot* provide TN/FP: they are faulty by construction.
+
+All four raw counts are in the results JSON. We deliberately do **not** merge them
+into one 2×2 matrix or report accuracy/precision across the pooled population: the
+ratio of mutants to real files is an arbitrary benchmark-design choice, so any pooled
+metric would be an artifact of that choice rather than a property of the tool.
+
+**Conversion artifacts are a third category.** Some findings on real files are
+verified-true defects introduced by the corpus's *conversion pipeline* (template
+metadata, under-covering converted maps) — correct linter output, but neither a tool
+false positive nor a violation of the "real driving is plausible" model. They are
+counted separately (`artifact_rules` in `CORPUS.json`, evidence in the triage file).
+
 ## Corpora and data sources
 
 All scenario content derives from **real recorded driving**. None of the raw datasets
