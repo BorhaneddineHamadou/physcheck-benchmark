@@ -58,8 +58,25 @@ are listed per corpus in `CORPUS.json` `artifact_rules`; the runner excludes the
 from the tool-false-positive count but reports them fully. They are correct linter
 output about the files; they are just not tool mistakes.
 
-## Corpora
+## Corpora and data sources
 
-See `corpora/<name>/PROVENANCE.md` for the real-data pedigree, license, and any
-triage notes of each corpus. `CORPUS.json` per corpus sets lint layers and an optional
-shared `--map`.
+All scenario content derives from **real recorded driving**. None of the raw datasets
+is redistributed here — the benchmark vendors only the derived OpenSCENARIO/OpenDRIVE
+files, under each source record's own license, with attribution:
+
+| Corpus | Files | Underlying real recordings | Derived from | License |
+|---|---|---|---|---|
+| `sctrans_real` | 1,079 `.xosc` + 81 `.xodr` | inD (Aachen intersections, drone) · highD (German motorways, drone) · NGSIM US-101/Lankershim/Peachtree (US DOT cameras) | [SCTrans](https://zenodo.org/records/8120048) (Zhang et al., ICSE 2024) — real-recording subset only; CommonRoad hand-crafted/OSM-generated scenarios excluded | CC BY 4.0 |
+| `corner_case_ndd` | 25 `.xosc`/`.xodr` pairs | ~78 km instrumented-vehicle naturalistic driving (Changchun) · ~10 h drone (Yatai Expressway) + highD · real dashcam accident videos (CCD/A3D) | [Corner-Case Dataset for AV Testing](https://doi.org/10.6084/m9.figshare.28888034.v1) (Jilin Univ., [Smart Cities 8(4):129](https://doi.org/10.3390/smartcities8040129)), RoadRunner-exported | CC BY 4.0 |
+| `dlr_ut` | 4 `.xosc` (fetched, see note) + map | 32,296 road-user trajectories incl. VRUs, AIM Research Intersection Braunschweig, infrastructure multi-sensor (2023-09-24) | [DLR Urban Traffic (DLR-UT) v1.3.1](https://zenodo.org/records/20919480), published by DLR | CC BY-NC-SA 4.0 |
+| `dlr_ht` | 1 `.xosc` + map | Real motorway traffic, Test Bed Lower Saxony A2/A391/A39/L295 (2024-10-07), infrastructure sensors | [DLR Highway Traffic (DLR-HT) v1.2.0](https://zenodo.org/records/18540070), published by DLR | CC BY-NC-SA 4.0 |
+
+The `dlr_ut` scenario files (140–182 MB each) exceed GitHub's file limits and are
+git-ignored — run `fetch/fetch_dlr_ut.sh` to download them from Zenodo before
+benchmarking.
+
+Full pedigree, download dates, filtering rules, and triage caveats live in each
+corpus's `corpora/<name>/PROVENANCE.md`; `CORPUS.json` per corpus sets lint layers,
+an optional shared `--map`, and hand-triaged `artifact_rules`. If you use this
+benchmark, please cite/attribute the upstream datasets above as their licenses
+require.
